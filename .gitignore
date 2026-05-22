@@ -1,0 +1,10 @@
+.DS_Store
+
+# Terraform
+.terraform/
+terraform.tfstate
+terraform.tfstate.*
+terraform.tfvars
+
+# TF vars
+prd.tfvars
