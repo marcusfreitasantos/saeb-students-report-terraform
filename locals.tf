@@ -7,6 +7,6 @@ locals {
   }
   
   lambda_build_path = {
-    manage_report_questions = "../backend/src/functions/manage_report_questions/.aws-sam/build/ManageReportQuestionsFunction/lambda.zip"
+    manage_report_questions = "./lambda-placeholder.zip"
   }
 }
