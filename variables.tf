@@ -3,7 +3,7 @@ variable "DYNAMO_QUESTIONS_TABLE" {
   default = ""
 }
 
-variable "DYNAMMO_INTERVENTIONS_TABLE" {
+variable "DYNAMO_INTERVENTIONS_TABLE" {
   type    = string
   default = ""
 }

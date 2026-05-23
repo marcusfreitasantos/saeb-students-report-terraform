@@ -49,26 +49,36 @@ resource "aws_lambda_permission" "api_gateway" {
   function_name = aws_lambda_function.manage_report_questions.function_name
 
   principal = "apigateway.amazonaws.com"
-  source_arn = "${aws_apigatewayv2_api.saeb_api.execution_arn}/*/*"
+  source_arn = "${aws_apigatewayv2_api.saeb_api.execution_arn}/*"
 }
 
 resource "aws_apigatewayv2_stage" "default" {
   api_id = aws_apigatewayv2_api.saeb_api.id
 
   name        = "$default"
-  auto_deploy = false
-  deployment_id = aws_apigatewayv2_deployment.saeb_deployment.id
-}
+  auto_deploy = true
 
-resource "aws_apigatewayv2_deployment" "saeb_deployment" {
-  api_id = aws_apigatewayv2_api.saeb_api.id
+  access_log_settings {
+    destination_arn = aws_cloudwatch_log_group.api_gateway_logs.arn
+    format = jsonencode({
+      requestId      = "$context.requestId"
+      ip             = "$context.identity.sourceIp"
+      requestTime    = "$context.requestTime"
+      httpMethod     = "$context.httpMethod"
+      resourcePath   = "$context.resourcePath"
+      status         = "$context.status"
+      protocol       = "$context.protocol"
+      responseLength = "$context.responseLength"
+      integrationLatency = "$context.integration.latency"
+      error          = "$context.error.message"
+      integrationError  = "$context.integrationErrorMessage"
+    })
+  }
+
+  tags = local.common_tags
 
   depends_on = [
-    aws_apigatewayv2_integration.lambda,
-    aws_apigatewayv2_route.create_question,
-    aws_apigatewayv2_route.list_questions,
-    aws_apigatewayv2_route.create_intervention,
-    aws_apigatewayv2_route.list_interventions,
+    aws_iam_role_policy.api_gateway_cloudwatch_policy
   ]
 }
 
