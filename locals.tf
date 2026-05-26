@@ -7,6 +7,6 @@ locals {
   }
   
   lambda_build_path = {
-    manage_report_questions = "./lambda-placeholder.zip"
+    lambda_placeholder = "./lambda-placeholder.zip"
   }
 }
