@@ -8,7 +8,12 @@ variable "DYNAMO_INTERVENTIONS_TABLE" {
   default = ""
 }
 
-variable "S3_BUCKET_NAME" {
+variable "S3_OUTPUT_BUCKET_NAME" {
+  type    = string
+  default = ""
+}
+
+variable "S3_ASSETS_BUCKET_NAME" {
   type    = string
   default = ""
 }
