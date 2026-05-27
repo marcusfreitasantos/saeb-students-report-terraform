@@ -1,5 +1,5 @@
 resource "aws_iam_role" "saeb_lambda_role" {
-  name = "saeb-manage-report-questions-role"
+  name = "saeb-lambda-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"

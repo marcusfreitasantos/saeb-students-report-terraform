@@ -27,8 +27,8 @@ resource "aws_lambda_function" "manage_report_questions" {
   tags = local.common_tags
 }
 
-resource "aws_lambda_function" "save_input_file" {
-  function_name = "save-input-file"
+resource "aws_lambda_function" "generate_presigned_url" {
+  function_name = "generate-presigned-url"
 
   filename         = local.lambda_build_path.lambda_placeholder
   source_code_hash = filebase64sha256(local.lambda_build_path.lambda_placeholder)
