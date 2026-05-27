@@ -6,11 +6,6 @@ resource "aws_apigatewayv2_api" "saeb_api" {
 
 }
 
-moved {
-  from = aws_apigatewayv2_integration.lambda
-  to   = aws_apigatewayv2_integration.manage_report_questions_integration
-}
-
 #------------- MANAGE REPORT QUESTION API -------------#
 resource "aws_apigatewayv2_integration" "manage_report_questions_integration" {
   api_id = aws_apigatewayv2_api.saeb_api.id
