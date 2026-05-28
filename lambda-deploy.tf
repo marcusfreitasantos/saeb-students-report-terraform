@@ -34,7 +34,8 @@ resource "aws_iam_policy" "saeb_students_report_deploy_policy" {
         ]
 
         Resource = [
-          aws_lambda_function.manage_report_questions.arn
+          aws_lambda_function.manage_report_questions.arn,
+          aws_lambda_function.generate_presigned_url.arn
         ]
       },
       {

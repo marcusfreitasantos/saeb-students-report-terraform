@@ -2,6 +2,14 @@ resource "aws_apigatewayv2_api" "saeb_api" {
   name          = "saeb-students-report-api"
   protocol_type = "HTTP"
 
+  cors_configuration {
+    allow_origins = ["*"]
+    allow_methods = ["GET", "POST", "OPTIONS", "PUT", "PATCH", "DELETE"]
+    allow_headers = ["*"]
+    expose_headers = ["*"]
+    allow_credentials = false
+  }
+
   tags = local.common_tags
 
 }
