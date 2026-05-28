@@ -1,4 +1,4 @@
-resource "aws_s3_bucket" "saeb_bucket" {
+resource "aws_s3_bucket" "saeb_output_bucket" {
   bucket = var.S3_OUTPUT_BUCKET_NAME
   tags   = local.common_tags
 }

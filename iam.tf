@@ -70,7 +70,8 @@ resource "aws_iam_role_policy" "lambda_s3" {
         ]
 
         Resource = [
-          "${aws_s3_bucket.saeb_report_assets.arn}/*"
+          "${aws_s3_bucket.saeb_report_assets.arn}/*",
+          "${aws_s3_bucket.saeb_output_bucket.arn}/*"
           ]
       }
     ]
