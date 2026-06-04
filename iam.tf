@@ -44,9 +44,9 @@ resource "aws_iam_role_policy" "lambda_dynamodb" {
 
         Resource = [
           aws_dynamodb_table.saeb_questions.arn,
-          aws_dynamodb_table.saeb_interventions.arn
+          aws_dynamodb_table.saeb_interventions.arn,
+          aws_dynamodb_table.saeb_reports.arn
         ]
-
       }
     ]
   })

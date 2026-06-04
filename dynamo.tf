@@ -77,3 +77,33 @@ resource "aws_dynamodb_table" "saeb_interventions" {
   tags = local.common_tags
 
 }
+
+resource "aws_dynamodb_table" "saeb_reports" {
+  name = "${var.DYNAMO_REPORTS_TABLE}"
+  billing_mode = "PAY_PER_REQUEST"
+
+  hash_key  = "id"
+
+  attribute {
+    name = "id"
+    type = "S"
+  }
+
+  ttl {
+    attribute_name = "ttl"
+    enabled        = true
+  }
+
+  point_in_time_recovery {
+    enabled = true
+  }
+
+  stream_enabled   = true
+  stream_view_type = "NEW_AND_OLD_IMAGES"
+
+  server_side_encryption {
+    enabled = true
+  }
+
+  tags = local.common_tags
+}
