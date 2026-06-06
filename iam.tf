@@ -45,7 +45,8 @@ resource "aws_iam_role_policy" "lambda_dynamodb" {
         Resource = [
           aws_dynamodb_table.saeb_questions.arn,
           aws_dynamodb_table.saeb_interventions.arn,
-          aws_dynamodb_table.saeb_reports.arn
+          aws_dynamodb_table.saeb_reports.arn,
+          "${aws_dynamodb_table.saeb_reports.arn}/index/GetByFilekey"
         ]
       }
     ]
@@ -72,7 +73,7 @@ resource "aws_iam_role_policy" "lambda_s3" {
         Resource = [
           "${aws_s3_bucket.saeb_report_assets.arn}/*",
           "${aws_s3_bucket.saeb_output_bucket.arn}/*"
-          ]
+        ]
       }
     ]
   })

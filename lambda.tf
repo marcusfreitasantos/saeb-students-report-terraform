@@ -41,7 +41,7 @@ resource "aws_lambda_function" "generate_presigned_url" {
 
   environment {
     variables = {
-      S3_ASSETS_BUCKET_NAME = var.S3_ASSETS_BUCKET_NAME
+      S3_INPUT_BUCKET_NAME = var.S3_INPUT_BUCKET_NAME
     }
   }
 
@@ -69,7 +69,9 @@ resource "aws_lambda_function" "generate_report" {
 
   environment {
     variables = {
+      S3_INPUT_BUCKET_NAME = var.S3_INPUT_BUCKET_NAME
       S3_OUTPUT_BUCKET_NAME = var.S3_OUTPUT_BUCKET_NAME
+      DYNAMO_REPORTS_TABLE = var.DYNAMO_REPORTS_TABLE
     }
   }
 

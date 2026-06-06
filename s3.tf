@@ -4,7 +4,7 @@ resource "aws_s3_bucket" "saeb_output_bucket" {
 }
 
 resource "aws_s3_bucket" "saeb_report_assets" {
-  bucket = var.S3_ASSETS_BUCKET_NAME
+  bucket = var.S3_INPUT_BUCKET_NAME
   tags   = local.common_tags
 }
 

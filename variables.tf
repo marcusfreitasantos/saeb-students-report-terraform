@@ -18,7 +18,7 @@ variable "S3_OUTPUT_BUCKET_NAME" {
   default = ""
 }
 
-variable "S3_ASSETS_BUCKET_NAME" {
+variable "S3_INPUT_BUCKET_NAME" {
   type    = string
   default = ""
 }

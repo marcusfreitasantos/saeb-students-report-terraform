@@ -1,8 +1,8 @@
 resource "aws_dynamodb_table" "saeb_questions" {
-  name = "${var.DYNAMO_QUESTIONS_TABLE}"
+  name         = var.DYNAMO_QUESTIONS_TABLE
   billing_mode = "PAY_PER_REQUEST"
 
-  hash_key  = "id"
+  hash_key = "id"
 
   attribute {
     name = "id"
@@ -30,7 +30,7 @@ resource "aws_dynamodb_table" "saeb_questions" {
 }
 
 resource "aws_dynamodb_table" "saeb_interventions" {
-  name = "${var.DYNAMO_INTERVENTIONS_TABLE}"
+  name         = var.DYNAMO_INTERVENTIONS_TABLE
   billing_mode = "PAY_PER_REQUEST"
 
   hash_key  = "id"
@@ -79,14 +79,31 @@ resource "aws_dynamodb_table" "saeb_interventions" {
 }
 
 resource "aws_dynamodb_table" "saeb_reports" {
-  name = "${var.DYNAMO_REPORTS_TABLE}"
+  name         = var.DYNAMO_REPORTS_TABLE
   billing_mode = "PAY_PER_REQUEST"
 
-  hash_key  = "id"
+  hash_key = "id"
 
   attribute {
     name = "id"
     type = "S"
+  }
+
+  attribute {
+    name = "filekey"
+    type = "S"
+  }
+
+  attribute {
+    name = "createdAt"
+    type = "S"
+  }
+
+  global_secondary_index {
+    name            = "GetByFilekey"
+    hash_key        = "filekey"
+    range_key       = "createdAt"
+    projection_type = "ALL"
   }
 
   ttl {
