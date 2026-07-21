@@ -155,6 +155,7 @@ This project uses environment-specific `*.tfvars` files to provide resource name
   - `DYNAMO_INTERVENTIONS_TABLE="saeb_interventions_prd"`
   - `DYNAMO_REPORTS_TABLE="saeb_reports_prd"`
   - `S3_OUTPUT_BUCKET_NAME="saeb-student-report-prd"`
+  - `S3_INPUT_BUCKET_NAME="saeb-report-assets-prd"`
   - `SQS_QUEUE_NAME="saeb-report-jobs-prd"`
   - `SQS_DEADLETTER_QUEUE_NAME="saeb-report-jobs-dlq-prd"`
 
