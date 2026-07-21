@@ -1,5 +1,0 @@
-DYNAMO_QUESTIONS_TABLE="saeb_questions_local"
-DYNAMO_INTERVENTIONS_TABLE="saeb_interventions_local"
-DYNAMO_REPORTS_TABLE="saeb_reports_local"
-S3_OUTPUT_BUCKET_NAME="saeb-student-report-local"
-S3_INPUT_BUCKET_NAME="saeb-report-assets-local"

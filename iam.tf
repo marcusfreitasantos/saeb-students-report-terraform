@@ -78,3 +78,13 @@ resource "aws_iam_role_policy" "lambda_s3" {
     ]
   })
 }
+
+
+resource "aws_sqs_queue_redrive_allow_policy" "saeb_report_jobs_queue_redrive_allow_policy" {
+  queue_url = aws_sqs_queue.saeb_report_jobs_deadletter_queue.id
+
+  redrive_allow_policy = jsonencode({
+    redrivePermission = "byQueue",
+    sourceQueueArns   = [aws_sqs_queue.saeb_report_jobs_queue.arn]
+  })
+}
