@@ -79,6 +79,33 @@ resource "aws_iam_role_policy" "lambda_s3" {
   })
 }
 
+resource "aws_iam_role_policy" "lambda_sqs" {
+  name = "lambda-sqs-policy"
+
+  role = aws_iam_role.saeb_lambda_role.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+
+    Statement = [
+      {
+        Effect = "Allow"
+
+        Action = [
+          "sqs:ReceiveMessage",
+          "sqs:DeleteMessage",
+          "sqs:ChangeMessageVisibility",
+          "sqs:GetQueueAttributes",
+          "sqs:GetQueueUrl"
+        ]
+
+        Resource = [
+          aws_sqs_queue.saeb_report_jobs_queue.arn
+        ]
+      }
+    ]
+  })
+}
 
 resource "aws_sqs_queue_redrive_allow_policy" "saeb_report_jobs_queue_redrive_allow_policy" {
   queue_url = aws_sqs_queue.saeb_report_jobs_deadletter_queue.id
