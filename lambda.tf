@@ -76,7 +76,7 @@ resource "aws_lambda_function" "generate_report" {
       DYNAMO_REPORTS_TABLE = var.DYNAMO_REPORTS_TABLE
       SQS_QUEUE_NAME = var.SQS_QUEUE_NAME
       SQS_DEADLETTER_QUEUE_NAME = var.SQS_DEADLETTER_QUEUE_NAME
-      SQS_QUEUE_URL = var.SQS_QUEUE_URL
+      SQS_QUEUE_URL = aws_sqs_queue.saeb_report_jobs_queue.id    
     }
   }
 

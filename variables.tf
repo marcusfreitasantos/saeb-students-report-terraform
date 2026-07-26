@@ -32,9 +32,3 @@ variable "SQS_DEADLETTER_QUEUE_NAME" {
   type    = string
   default = ""
 }
-
-variable "SQS_QUEUE_URL" {
-  type    = string
-  default = ""
-}
-
