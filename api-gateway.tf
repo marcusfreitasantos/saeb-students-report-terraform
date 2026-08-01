@@ -3,10 +3,10 @@ resource "aws_apigatewayv2_api" "saeb_api" {
   protocol_type = "HTTP"
 
   cors_configuration {
-    allow_origins = ["*"]
-    allow_methods = ["GET", "POST", "OPTIONS", "PUT", "PATCH", "DELETE"]
-    allow_headers = ["*"]
-    expose_headers = ["*"]
+    allow_origins     = ["*"]
+    allow_methods     = ["GET", "POST", "OPTIONS", "PUT", "PATCH", "DELETE"]
+    allow_headers     = ["*"]
+    expose_headers    = ["*"]
     allow_credentials = false
   }
 
@@ -69,12 +69,12 @@ resource "aws_apigatewayv2_route" "generate_presigned_url" {
 }
 
 resource "aws_lambda_permission" "api_gateway" {
-  for_each     = toset([aws_lambda_function.manage_report_questions.function_name, aws_lambda_function.generate_presigned_url.function_name])
-  statement_id = "AllowExecutionFromAPIGateway-${each.key}"
-  action       = "lambda:InvokeFunction"
+  for_each      = toset([aws_lambda_function.manage_report_questions.function_name, aws_lambda_function.generate_presigned_url.function_name, aws_lambda_function.generate_report.function_name])
+  statement_id  = "AllowExecutionFromAPIGateway-${each.key}"
+  action        = "lambda:InvokeFunction"
   function_name = each.value
-  principal    = "apigateway.amazonaws.com"
-  source_arn   = "${aws_apigatewayv2_api.saeb_api.execution_arn}/*"
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_apigatewayv2_api.saeb_api.execution_arn}/*"
 }
 
 resource "aws_apigatewayv2_stage" "default" {
@@ -86,17 +86,17 @@ resource "aws_apigatewayv2_stage" "default" {
   access_log_settings {
     destination_arn = aws_cloudwatch_log_group.api_gateway_logs.arn
     format = jsonencode({
-      requestId      = "$context.requestId"
-      ip             = "$context.identity.sourceIp"
-      requestTime    = "$context.requestTime"
-      httpMethod     = "$context.httpMethod"
-      resourcePath   = "$context.resourcePath"
-      status         = "$context.status"
-      protocol       = "$context.protocol"
-      responseLength = "$context.responseLength"
+      requestId          = "$context.requestId"
+      ip                 = "$context.identity.sourceIp"
+      requestTime        = "$context.requestTime"
+      httpMethod         = "$context.httpMethod"
+      resourcePath       = "$context.resourcePath"
+      status             = "$context.status"
+      protocol           = "$context.protocol"
+      responseLength     = "$context.responseLength"
       integrationLatency = "$context.integration.latency"
-      error          = "$context.error.message"
-      integrationError  = "$context.integrationErrorMessage"
+      error              = "$context.error.message"
+      integrationError   = "$context.integrationErrorMessage"
     })
   }
 
@@ -105,6 +105,22 @@ resource "aws_apigatewayv2_stage" "default" {
   depends_on = [
     aws_iam_role_policy.api_gateway_cloudwatch_policy
   ]
+}
+
+#------------- GET REPORT URL API -------------#
+resource "aws_apigatewayv2_integration" "generate_report_integration" {
+  api_id = aws_apigatewayv2_api.saeb_api.id
+
+  integration_type       = "AWS_PROXY"
+  integration_uri        = aws_lambda_function.generate_report.invoke_arn
+  payload_format_version = "2.0"
+}
+
+resource "aws_apigatewayv2_route" "get_saeb_report_url" {
+  api_id = aws_apigatewayv2_api.saeb_api.id
+
+  route_key = "GET /report/status"
+  target    = "integrations/${aws_apigatewayv2_integration.generate_report_integration.id}"
 }
 
 output "api_url" {

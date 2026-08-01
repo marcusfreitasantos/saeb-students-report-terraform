@@ -1,6 +1,6 @@
 resource "aws_cloudwatch_log_group" "api_gateway_logs" {
   name              = "/aws/apigateway/saeb-students-report-api"
-  retention_in_days = 7  # Adjust retention as needed
+  retention_in_days = 7 # Adjust retention as needed
 
   tags = local.common_tags
 }

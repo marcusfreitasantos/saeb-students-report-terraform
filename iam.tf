@@ -92,6 +92,7 @@ resource "aws_iam_role_policy" "lambda_sqs" {
         Effect = "Allow"
 
         Action = [
+          "sqs:SendMessage",
           "sqs:ReceiveMessage",
           "sqs:DeleteMessage",
           "sqs:ChangeMessageVisibility",

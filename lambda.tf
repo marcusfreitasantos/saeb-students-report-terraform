@@ -69,14 +69,14 @@ resource "aws_lambda_function" "generate_report" {
 
   environment {
     variables = {
-      S3_INPUT_BUCKET_NAME = var.S3_INPUT_BUCKET_NAME
-      S3_OUTPUT_BUCKET_NAME = var.S3_OUTPUT_BUCKET_NAME
-      DYNAMO_QUESTIONS_TABLE = var.DYNAMO_QUESTIONS_TABLE
+      S3_INPUT_BUCKET_NAME       = var.S3_INPUT_BUCKET_NAME
+      S3_OUTPUT_BUCKET_NAME      = var.S3_OUTPUT_BUCKET_NAME
+      DYNAMO_QUESTIONS_TABLE     = var.DYNAMO_QUESTIONS_TABLE
       DYNAMO_INTERVENTIONS_TABLE = var.DYNAMO_INTERVENTIONS_TABLE
-      DYNAMO_REPORTS_TABLE = var.DYNAMO_REPORTS_TABLE
-      SQS_QUEUE_NAME = var.SQS_QUEUE_NAME
-      SQS_DEADLETTER_QUEUE_NAME = var.SQS_DEADLETTER_QUEUE_NAME
-      SQS_QUEUE_URL = aws_sqs_queue.saeb_report_jobs_queue.id    
+      DYNAMO_REPORTS_TABLE       = var.DYNAMO_REPORTS_TABLE
+      SQS_QUEUE_NAME             = var.SQS_QUEUE_NAME
+      SQS_DEADLETTER_QUEUE_NAME  = var.SQS_DEADLETTER_QUEUE_NAME
+      SQS_QUEUE_URL              = aws_sqs_queue.saeb_report_jobs_queue.id
     }
   }
 

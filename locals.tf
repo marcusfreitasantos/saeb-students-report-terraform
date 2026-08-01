@@ -5,7 +5,7 @@ locals {
     ManagedBy   = "terraform"
     Owner       = "Marcus Freitas"
   }
-  
+
   lambda_build_path = {
     lambda_placeholder = "./lambda-placeholder.zip"
   }
