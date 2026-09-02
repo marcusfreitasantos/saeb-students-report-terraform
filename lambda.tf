@@ -63,9 +63,10 @@ resource "aws_lambda_function" "generate_report" {
 
   role = aws_iam_role.saeb_lambda_role.arn
 
-  handler = "main.handler"
-  runtime = "python3.12"
-  timeout = 30
+  handler     = "main.handler"
+  runtime     = "python3.12"
+  timeout     = 30
+  memory_size = 1024
 
   environment {
     variables = {

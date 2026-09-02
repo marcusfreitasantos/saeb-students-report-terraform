@@ -1,6 +1,6 @@
 resource "aws_sqs_queue" "saeb_report_jobs_queue" {
   name                       = var.SQS_QUEUE_NAME
-  delay_seconds              = 90
+  delay_seconds              = 0
   max_message_size           = 2048
   message_retention_seconds  = 86400
   receive_wait_time_seconds  = 10
