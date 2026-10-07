@@ -13,6 +13,11 @@ variable "DYNAMO_REPORTS_TABLE" {
   default = ""
 }
 
+variable "DYNAMO_LEADS_TABLE" {
+  type    = string
+  default = ""
+}
+
 variable "S3_OUTPUT_BUCKET_NAME" {
   type    = string
   default = ""

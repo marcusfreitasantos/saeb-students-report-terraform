@@ -68,8 +68,24 @@ resource "aws_apigatewayv2_route" "generate_presigned_url" {
   target    = "integrations/${aws_apigatewayv2_integration.generate_presigned_url_integration.id}"
 }
 
+#------------- CAPTURE LEADS API -------------#
+resource "aws_apigatewayv2_integration" "capture_leads_integration" {
+  api_id = aws_apigatewayv2_api.saeb_api.id
+
+  integration_type       = "AWS_PROXY"
+  integration_uri        = aws_lambda_function.capture_leads.invoke_arn
+  payload_format_version = "2.0"
+}
+
+resource "aws_apigatewayv2_route" "capture_lead" {
+  api_id = aws_apigatewayv2_api.saeb_api.id
+
+  route_key = "POST /leads/create"
+  target    = "integrations/${aws_apigatewayv2_integration.capture_leads_integration.id}"
+}
+
 resource "aws_lambda_permission" "api_gateway" {
-  for_each      = toset([aws_lambda_function.manage_report_questions.function_name, aws_lambda_function.generate_presigned_url.function_name, aws_lambda_function.generate_report.function_name])
+  for_each      = toset([aws_lambda_function.manage_report_questions.function_name, aws_lambda_function.generate_presigned_url.function_name, aws_lambda_function.generate_report.function_name, aws_lambda_function.capture_leads.function_name])
   statement_id  = "AllowExecutionFromAPIGateway-${each.key}"
   action        = "lambda:InvokeFunction"
   function_name = each.value

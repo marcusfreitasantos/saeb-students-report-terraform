@@ -1,6 +1,7 @@
 DYNAMO_QUESTIONS_TABLE     = "saeb_questions_dev"
 DYNAMO_INTERVENTIONS_TABLE = "saeb_interventions_dev"
 DYNAMO_REPORTS_TABLE       = "saeb_reports_dev"
+DYNAMO_LEADS_TABLE         = "saeb_leads_dev"
 S3_OUTPUT_BUCKET_NAME      = "saeb-student-report-dev"
 S3_INPUT_BUCKET_NAME       = "saeb-report-assets-dev"
 SQS_QUEUE_NAME             = "saeb-report-jobs-dev"

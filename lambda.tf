@@ -90,3 +90,31 @@ resource "aws_lambda_function" "generate_report" {
 
   tags = local.common_tags
 }
+
+resource "aws_lambda_function" "capture_leads" {
+  function_name = "capture-leads"
+
+  filename         = local.lambda_build_path.lambda_placeholder
+  source_code_hash = filebase64sha256(local.lambda_build_path.lambda_placeholder)
+
+  role = aws_iam_role.saeb_lambda_role.arn
+
+  handler = "main.handler"
+  runtime = "python3.12"
+  timeout = 30
+
+  environment {
+    variables = {
+      DYNAMO_LEADS_TABLE = var.DYNAMO_LEADS_TABLE
+    }
+  }
+
+  lifecycle {
+    ignore_changes = [
+      filename,
+      source_code_hash,
+    ]
+  }
+
+  tags = local.common_tags
+}
